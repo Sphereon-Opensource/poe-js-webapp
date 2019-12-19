@@ -22,7 +22,9 @@ export default {
   /*
   ** Configure environment variables
    */
-  env: {},
+  env: {
+    factomChainId: '8ca31a136b6ecd1c16796fdef401dc471e822730dd112a21e63da3d985634143',
+  },
 
   /*
   ** Customize the progress-bar color
