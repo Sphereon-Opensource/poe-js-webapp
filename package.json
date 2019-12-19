@@ -5,7 +5,8 @@
   "author": "Softmedia",
   "private": true,
   "scripts": {
-    "dev": "babel-node -r ./node_modules/dotenv/config ./node_modules/nuxt/bin/nuxt",
+    "win-dev": "babel-node -r ./node_modules/dotenv/config ./node_modules/nuxt/bin/nuxt",
+    "dev": "babel-node -r ./node_modules/dotenv/config ./node_modules/.bin/nuxt",
     "dev:build": "babel-node -r ./node_modules/dotenv/config ./node_modules/.bin/nuxt build",
     "dev:start": "babel-node -r ./node_modules/dotenv/config ./node_modules/.bin/nuxt start",
     "dev:generate": "babel-node -r ./node_modules/dotenv/config ./node_modules/.bin/nuxt generate",
