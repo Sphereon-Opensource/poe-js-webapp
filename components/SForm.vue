@@ -99,11 +99,12 @@
         try {
           const formData = getFormData(this.fields);
 
-          const response = await this.$axios.$post(this._action, formData, {
-            headers: {
-              'Content-Type': 'multipart/formdata'
-            }
-          });
+          const response = { 'foo' : formData };
+          // const response = await this.$axios.$post(this._action, formData, {
+          //   headers: {
+          //     'Content-Type': 'multipart/formdata'
+          //   }
+          // });
 
           this.$emit('submit', response);
 
