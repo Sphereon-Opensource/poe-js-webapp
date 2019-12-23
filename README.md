@@ -1,21 +1,47 @@
-# 19314-document-sign-sphereon
+# Proof Of Existence (POE) Webapp
 
-> Document Sign Sphereon
+TODO: Explain context of application (goal, motivation, etc).
+
+TODO: Describe implementation choices; Vue.JS, frameworks, etc
+
+TODO: Shortly describe deployment options and refer to deployment chapter
+
+## Configurations
+
+### Blockchain Proof / Virtual Data Blockchain
+
+Not implemented yet
+
+### Factom
+
+Not implemented yet
+
+### Blockchange
 
 ## Build Setup
 
+Install dependencies
 ``` bash
-# install dependencies
-$ yarn install
+yarn install
+```
 
-# serve with hot reload at localhost:3000
-$ yarn dev (linux)
-$ yarn win-dev (windows)
+## Running & Deployment
+Serve with hot reload at localhost:3000 for development purposes
+```bash
+yarn dev
+```
+Windows:
+```bash
+yarn win-dev
+```
 
-# build for production and launch server
-$ yarn build
-$ yarn start
+Build for production and launch server
+```bash
+yarn build
+yarn start
+```
 
+```bash
 # generate static project
 $ yarn generate
 ```
