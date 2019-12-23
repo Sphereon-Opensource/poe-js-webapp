@@ -1,8 +1,10 @@
 # Proof Of Existence (POE) Webapp
 
-TODO: Explain context of application (goal, motivation, etc).
+This webapp facilitates the registration and verification of a proof-of-existence for files of all types.
+For files that are uploaded for registration, a hash of its content is calculated. This hash is registered on an immutable ledger (blockchain).
+When uploading a file for verification, the hash of its content is calculated and the blockchain is checked for this hash. If the hash exists, the file has existed from at latest the point in time where the hash was registered.
 
-TODO: Describe implementation choices; Vue.JS, frameworks, etc
+This application was implemented using Vue.JS. The app can be served as a static website and has support for multiple configurations for connecting to a blockchain.
 
 TODO: Shortly describe deployment options and refer to deployment chapter
 
