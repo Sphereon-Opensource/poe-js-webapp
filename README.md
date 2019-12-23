@@ -8,6 +8,26 @@ This application was implemented using Vue.JS. The app can be served as a static
 
 TODO: Shortly describe deployment options and refer to deployment chapter
 
+
+## Dependencies
+Note the versions for Node and Yarn in `package.json` and `.nvmrc`.
+
+NVM will find `.nvmrc` and make the correct version of Node active in your terminal:
+```bash
+nvm use
+```
+
+Install the Yarn version mentioned in `package.json`:
+```bash
+npm install -g yarn@x.y.z
+```
+
+Install dependencies
+``` bash
+yarn install
+```
+
+
 ## Configurations
 
 ### Blockchain Proof / Virtual Data Blockchain
@@ -19,13 +39,6 @@ Not implemented yet
 Not implemented yet
 
 ### Blockchange
-
-## Build Setup
-
-Install dependencies
-``` bash
-yarn install
-```
 
 ## Running & Deployment
 Serve with hot reload at localhost:3000 for development purposes
