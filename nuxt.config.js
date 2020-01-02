@@ -49,6 +49,7 @@ export default {
   plugins: [
     '~/plugins/components',
     '~/plugins/filters',
+    '~/plugins/vue-moment',
     {src: '~/plugins/vue-click-outside', ssr: false}
   ],
 
