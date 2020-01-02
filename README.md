@@ -24,7 +24,7 @@ npm install -g yarn@x.y.z
 
 Install dependencies
 ``` bash
-yarn install
+yarn
 ```
 
 

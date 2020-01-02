@@ -4839,7 +4839,7 @@ extract-css-chunks-webpack-plugin@^4.7.1:
     webpack-external-import "^0.3.0-beta.0"
     webpack-sources "^1.1.0"
 
-factom@^1.2.8:
+factom@1.2.8:
   version "1.2.8"
   resolved "https://registry.yarnpkg.com/factom/-/factom-1.2.8.tgz#9df3794839c69e6d8570f48bbeea22051f395d87"
   integrity sha512-w62xbigEbAFvGx4QMu7WiXF4GXH72Z4pfLC5dY0nO2iaq4ioT6IJKyF0rL154e90ahVLE3sR6jP3biE7wSgwtA==
@@ -6835,6 +6835,11 @@ mkdirp@0.5.1, mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.1:
   integrity sha1-MAV0OOrGz3+MR2fzhkjWaX11yQM=
   dependencies:
     minimist "0.0.8"
+
+moment@^2.19.2, moment@^2.24.0:
+  version "2.24.0"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
+  integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
 
 move-concurrently@^1.0.1:
   version "1.0.1"
@@ -10493,6 +10498,13 @@ vue-meta@^2.3.1:
   integrity sha512-hnZvDNvLh+PefJLfYkZhG6cSBNKikgQyiEK8lI/P2qscM1DC/qHHOfdACPQ/VDnlaWU9VlcobCTNyVtssTR4XQ==
   dependencies:
     deepmerge "^4.0.0"
+
+vue-moment@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/vue-moment/-/vue-moment-4.1.0.tgz#092a8ff723a96c6f85a0a8e23ad30f0bf320f3b0"
+  integrity sha512-Gzisqpg82ItlrUyiD9d0Kfru+JorW2o4mQOH06lEDZNgxci0tv/fua1Hl0bo4DozDV2JK1r52Atn/8QVCu8qQw==
+  dependencies:
+    moment "^2.19.2"
 
 vue-no-ssr@^1.1.1:
   version "1.1.1"

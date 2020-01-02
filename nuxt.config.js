@@ -9,12 +9,12 @@ export default {
   head: {
     title: 'Document Sign',
     meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' },
-      { hid: 'description', name: 'description', content: 'Document Sign' }
+      {charset: 'utf-8'},
+      {name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'},
+      {hid: 'description', name: 'description', content: 'Document Sign'}
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'}
     ],
     scripts: []
   },
@@ -22,12 +22,14 @@ export default {
   /*
   ** Configure environment variables
    */
-  env: {},
+  env: {
+    proofChainId: '8ca31a136b6ecd1c16796fdef401dc471e822730dd112a21e63da3d985634143',
+  },
 
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#3B8070' },
+  loading: {color: '#3B8070'},
 
   /*
   ** Global CSS
@@ -40,7 +42,7 @@ export default {
   plugins: [
     '~/plugins/components',
     '~/plugins/filters',
-    { src: '~/plugins/vue-click-outside', ssr: false }
+    {src: '~/plugins/vue-click-outside', ssr: false}
   ],
 
   /*
@@ -100,7 +102,7 @@ export default {
   sentry: {
     dsn: process.env.SENTRY_DSN,
     config: {
-      ignoreErrors: [ 'ReportingObserver' ]
+      ignoreErrors: ['ReportingObserver']
     }
   },
 
@@ -133,7 +135,7 @@ export default {
   ** Build configuration
   */
   build: {
-    transpile: [ /^vuetify/ ],
+    transpile: [/^vuetify/],
     extractCSS: isProduction,
     hardSource: process.env.HARDSOURCE,
     templates: [
@@ -145,7 +147,7 @@ export default {
     /*
     ** You can extend webpack config here
     */
-    extend (config, { isClient, isDev }) {
+    extend(config, {isClient, isDev}) {
       if (isClient && isDev) {
         config.devtool = 'source-map';
       }
