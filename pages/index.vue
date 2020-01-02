@@ -1,7 +1,7 @@
 <template>
   <layout-home>
     <h1 :class="[ $vuetify.breakpoint.xsOnly ? 'display-1' : 'display-3', 'font-weight-bold mb-4 white--text' ]">
-      Leg vast. Check, controleer en verifieer
+      {{ _title }}
     </h1>
     <p class="body-1 tertiary--text">
       This is meant as a demo-page for those interested in Blockchain as a
@@ -65,31 +65,46 @@
   import SAvatar from '@/components/SAvatar';
 
   export default {
-    components: { SAvatar, SCardActions, SCardText, SCardTitle, SCard, LayoutHome },
+    components: {SAvatar, SCardActions, SCardText, SCardTitle, SCard, LayoutHome},
 
-    data: () => ({
-      blocks: [
-        {
+    data: () => {
+      const menuItems = [];
+
+      if (!process.env.disableSign) {
+        menuItems.push({
           icon: '/sign.svg',
           title: 'Vastleggen',
           text: `We just store a unique cryptographic key that represents the digital objects.
-          It is important to understand that the files themselves are not stored in the Blockchain.`,
+    It is important to understand that the files themselves are not stored in the Blockchain.`,
           to: '/vastleggen'
-        },
-        {
+        });
+      }
+
+      if (!process.env.disableVerify) {
+        menuItems.push({
           icon: '/verify.svg',
           title: 'Verifiëren',
           text: `We just store a unique cryptographic key that represents the digital objects.
-          This guarantees your privacy and confidentiality.`,
+    This guarantees your privacy and confidentiality.`,
           to: '/verifieren'
-        }
-      ]
-    }),
+        });
+      }
+
+      return ({
+        blocks: menuItems
+      });
+    },
+
+    computed: {
+      _title() {
+        return process.env.main_title;
+      }
+    },
 
     head: () => ({
       title: 'Document Sign',
       meta: [
-        { hid: 'description', name: 'description', content: 'Document Sign' }
+        {hid: 'description', name: 'description', content: 'Document Sign'}
       ]
     })
   }

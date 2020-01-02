@@ -112,7 +112,6 @@
       },
 
       submit(response) {
-        console.log(response);
         this.verified = response
           .filter(verification => verification.verified);
 

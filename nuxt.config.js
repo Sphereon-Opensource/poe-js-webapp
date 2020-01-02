@@ -24,6 +24,13 @@ export default {
    */
   env: {
     proofChainId: '8ca31a136b6ecd1c16796fdef401dc471e822730dd112a21e63da3d985634143',
+    disableSign: true,
+
+    disablePageHowTo: true,
+    disablePageMoreInfo: true,
+    disablePageContact: true,
+
+    main_title: 'Leg vast. Check, controleer en verifieer',
   },
 
   /*
