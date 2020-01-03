@@ -82,7 +82,7 @@
 
       if (!process.env.disableVerify) {
         menuItems.push({
-          icon: '/verify.svg',
+          icon: '/blockchange/verify.svg',
           title: 'Verifiëren',
           text: `We just store a unique cryptographic key that represents the digital objects.
     This guarantees your privacy and confidentiality.`,

@@ -23,7 +23,7 @@
     <template v-slot:right>
       <s-card class="mx-sm-3 mx-md-6 mx-lg-12">
         <s-card-title
-          icon="/verify.svg"
+          icon="/blockchange/verify.svg"
           class="primary--text"
         >
           Verifiëren

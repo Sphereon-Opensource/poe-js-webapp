@@ -86,7 +86,7 @@
       logo() {
         return (this.$store.state.page.layout === 'two' &&
           this.$vuetify.breakpoint.smAndUp) ||
-        this.sticky ? '/logo-light.svg' : '/blockchange/logo-dark.svg';
+        this.sticky ? '/blockchange/logo-light.svg' : '/blockchange/logo-dark.svg';
       }
     },
 

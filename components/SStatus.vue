@@ -8,7 +8,7 @@
       {{ verification.name }}
       &nbsp;
       <i>
-        Geregistreerd op {{ verification.blockchainEntry.timestamp | moment("dddd, D MMMM YYYY") }}
+        Geregistreerd op {{ verification.blockchainEntry.timestamp | moment("dddd, D MMMM YYYY, HH:mm") }}
       </i>
     </v-chip>
     <v-chip

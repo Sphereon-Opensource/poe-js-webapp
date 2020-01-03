@@ -30,7 +30,9 @@ export default {
     disablePageMoreInfo: true,
     disablePageContact: true,
 
-    main_title: 'Leg vast. Check, controleer en verifieer',
+    main_title: process.env.MAIN_TITLE || 'Leg vast. Check, controleer en verifieer',
+
+    theme: 'blockchange',
   },
 
   /*
