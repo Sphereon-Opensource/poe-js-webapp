@@ -31,6 +31,17 @@ export default {
     disablePageContact: true,
 
     main_title: process.env.MAIN_TITLE || 'Leg vast. Check, controleer en verifieer',
+    main_text: process.env.MAIN_TEXT || 'This is meant as a demo-page for those interested in Blockchain as a technology. It is a real-life Blockchain demo, which allows you to upload, free-of-charge, up to 5 objects at a time.',
+
+    main_card_verify_title: process.env.MAIN_CARD_VERIFY_TITLE || 'Verifiëren',
+    main_card_verify_text: process.env.MAIN_CARD_VERIFY_TEXT || 'We just store a unique cryptographic key that represents the digital objects. This guarantees your privacy and confidentiality.',
+
+    verify_title: process.env.VERIFY_TITLE || 'Verify your digital documents',
+    verify_text: process.env.VERIFY_TEXT || 'This is meant as a demo-page for those interested in Blockchain as a technology. It is a real-life Blockchain demo, which allows you to upload, free-of-charge, up to 5 objects at a time.',
+    verify_sub_title: process.env.VERIFY_SUB_TITLE || 'Process documents',
+    verify_sub_text: process.env.VERIFY_SUB_TEXT || 'Use Sphereon as a Gateway to process documents and unstructured data and integrate these with Ethereum, Factom, HyperLedger, MultiCoin, VeChain, etc, to create immutable and independent verifiable records of transactions and Proof of Authenticity of documents, emails and other information objects.\n',
+    verify_card_title: process.env.VERIFY_CARD_TITLE || 'Verifiëren',
+    verify_card_text: process.env.VERIFY_CARD_TEXT || 'We just store a unique cryptographic digital key that represents the digital objects. It is important to understand that the files themselves are not stored in the Blockchain or any of our systems for that matter.',
 
     theme: 'blockchange',
   },

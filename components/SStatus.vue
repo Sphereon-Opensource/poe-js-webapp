@@ -86,7 +86,7 @@
     display: flex;
     flex-direction: row;
     align-content: stretch;
-    justify-content: start;
+    justify-content: flex-start;
     background-color: #4FE799;
   }
 
@@ -104,7 +104,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: start;
+    align-items: flex-start;
   }
 
   .v-card.verified .badge-info p {

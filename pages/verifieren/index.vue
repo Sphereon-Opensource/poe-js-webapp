@@ -2,22 +2,16 @@
   <layout-two>
     <template v-slot:left>
       <h1 class="display-2 font-weight-bold mb-4">
-        Verify your digital documents
+        {{ _title }}
       </h1>
       <p class="body-1 primary--text">
-        This is meant as a demo-page for those interested in Blockchain as a
-        technology. It is a real-life Blockchain demo, which allows you to
-        upload, free-of-charge, up to 5 objects at a time.
+        {{ _text }}
       </p>
       <h2 class="title font-weight-bold">
-        Process documents
+        {{ _subtitle }}
       </h2>
       <p class="body-1">
-        Use Sphereon as a Gateway to process documents and unstructured
-        data and integrate these with Ethereum, Factom, HyperLedger,
-        MultiCoin, VeChain, etc, to create immutable and independent
-        verifiable records of transactions and Proof of Authenticity of
-        documents, emails and other information objects.
+        {{ _subtext }}
       </p>
     </template>
     <template v-slot:right>
@@ -26,14 +20,12 @@
           icon="/blockchange/verify.svg"
           class="primary--text"
         >
-          Verifiëren
+          {{ _card_title }}
         </s-card-title>
         <s-card-text>
-          We just store a unique cryptographic digital key that represents the digital objects. It
-          is important to understand that the files themselves are not stored in the Blockchain
-          or any of our systems for that matter.
+          {{ _card_text }}
         </s-card-text>
-        <form-verify />
+        <form-verify/>
       </s-card>
     </template>
   </layout-two>
@@ -47,12 +39,38 @@
   import FormVerify from '@/components/FormVerify';
 
   export default {
-    components: { FormVerify, SCardText, SCardTitle, SCard, LayoutTwo },
+    components: {FormVerify, SCardText, SCardTitle, SCard, LayoutTwo},
+
+    computed: {
+      _title() {
+        return process.env.verify_title;
+      },
+
+      _text() {
+        return process.env.verify_text;
+      },
+
+      _subtitle() {
+        return process.env.verify_sub_title;
+      },
+
+      _subtext() {
+        return process.env.verify_sub_text;
+      },
+
+      _card_title() {
+        return process.env.verify_card_title;
+      },
+
+      _card_text() {
+        return process.env.verify_card_text;
+      }
+    },
 
     head: () => ({
       title: 'Verifiëren - Document Sign',
       meta: [
-        { hid: 'description', name: 'description', content: 'Verify your digital documents' }
+        {hid: 'description', name: 'description', content: 'Verify your digital documents'}
       ]
     })
   }

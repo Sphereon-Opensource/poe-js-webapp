@@ -4,9 +4,7 @@
       {{ _title }}
     </h1>
     <p class="body-1 tertiary--text">
-      This is meant as a demo-page for those interested in Blockchain as a
-      technology. It is a real-life Blockchain demo, which allows you to upload,
-      free-of-charge, up to 5 objects at a time.
+      {{ _mainText }}
     </p>
     <v-row
       justify="center"
@@ -83,9 +81,8 @@
       if (!process.env.disableVerify) {
         menuItems.push({
           icon: '/blockchange/verify.svg',
-          title: 'Verifiëren',
-          text: `We just store a unique cryptographic key that represents the digital objects.
-    This guarantees your privacy and confidentiality.`,
+          title: process.env.main_card_verify_title,
+          text: process.env.main_card_verify_text,
           to: '/verifieren'
         });
       }
@@ -98,6 +95,10 @@
     computed: {
       _title() {
         return process.env.main_title;
+      },
+
+      _mainText() {
+        return process.env.main_text;
       }
     },
 
