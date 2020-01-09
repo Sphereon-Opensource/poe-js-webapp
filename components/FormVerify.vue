@@ -51,26 +51,30 @@
       </template>
     </s-form>
     <v-expand-transition>
-      <div v-if="verified.length">
+      <div v-if="verified.length || notVerified.length">
         <div class="title primary--text mt-4">
           Status
         </div>
-        <v-divider class="mt-1 mb-2"/>
-        <div class="subtitle-1 mb-2">
-          Geverifieerde bestanden
+        <div v-if="verified.length">
+          <v-divider class="mt-1 mb-2"/>
+          <div class="subtitle-1 mb-2">
+            Geverifieerde bestanden
+          </div>
+          <s-status
+            :items="verified"
+            :truncate-length="$vuetify.breakpoint.xsOnly ? 22 : Infinity"
+          />
         </div>
-        <s-status
-          :items="verified"
-          :truncate-length="$vuetify.breakpoint.xsOnly ? 22 : Infinity"
-        />
-        <v-divider class="mt-1 mb-2"/>
-        <div class="subtitle-1 mb-2">
-          Niet geverifieerde bestanden
+        <div v-if="notVerified.length">
+          <v-divider class="mt-1 mb-2"/>
+          <div class="subtitle-1 mb-2">
+            Niet geverifieerde bestanden
+          </div>
+          <s-status
+            :items="notVerified"
+            :truncate-length="$vuetify.breakpoint.xsOnly ? 22 : Infinity"
+          />
         </div>
-        <s-status
-          :items="notVerified"
-          :truncate-length="$vuetify.breakpoint.xsOnly ? 22 : Infinity"
-        />
       </div>
     </v-expand-transition>
   </div>

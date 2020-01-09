@@ -26,7 +26,7 @@
 
   const itemWithName = (item, truncateLength) => ({
     ...item,
-    name: truncate(item.file.name, truncateLength)
+    name: truncate(item.name, truncateLength)
   });
 
   export default {

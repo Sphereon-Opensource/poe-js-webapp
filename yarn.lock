@@ -2007,6 +2007,13 @@
     source-map-support "^0.5.7"
     tslib "^1.9.3"
 
+"@sphereon/openbadges-lib@file:../openbadges-lib/sphereon-openbadges-lib-0.0.1.tgz":
+  version "0.0.1"
+  resolved "file:../openbadges-lib/sphereon-openbadges-lib-0.0.1.tgz#a29630dfae03abc2d5593bbadf5763ac131f7607"
+  dependencies:
+    node-fetch "2.6.0"
+    png-chunks-extract "1.0.0"
+
 "@types/agent-base@^4.2.0":
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/@types/agent-base/-/agent-base-4.2.0.tgz#00644e8b395b40e1bf50aaf1d22cabc1200d5051"
@@ -3660,6 +3667,11 @@ cosmiconfig@^5.0.0:
     is-directory "^0.3.1"
     js-yaml "^3.13.1"
     parse-json "^4.0.0"
+
+crc-32@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/crc-32/-/crc-32-0.3.0.tgz#6a3d3687f5baec41f7e9b99fe1953a2e5d19775e"
+  integrity sha1-aj02h/W67EH36bmf4ZU6Ll0Zd14=
 
 create-ecdh@^4.0.0:
   version "4.0.3"
@@ -6964,7 +6976,7 @@ node-environment-flags@^1.0.5:
     object.getownpropertydescriptors "^2.0.3"
     semver "^5.7.0"
 
-node-fetch@^2.1.2, node-fetch@^2.6.0:
+node-fetch@2.6.0, node-fetch@^2.1.2, node-fetch@^2.6.0:
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.0.tgz#e633456386d4aa55863f676a7ab0daa8fdecb0fd"
   integrity sha512-8dG4H5ujfvFiqDmVu9fQ5bOHUC15JMjMY/Zumv26oOvvVJjM67KF8koCWIabKQ1GJIa9r2mMZscBq/TbdOcmNA==
@@ -7678,6 +7690,13 @@ pkg-up@^2.0.0:
   integrity sha1-yBmscoBZpGHKscOImivjxJoATX8=
   dependencies:
     find-up "^2.1.0"
+
+png-chunks-extract@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/png-chunks-extract/-/png-chunks-extract-1.0.0.tgz#fad4a905e66652197351c65e35b92c64311e472d"
+  integrity sha1-+tSpBeZmUhlzUcZeNbksZDEeRy0=
+  dependencies:
+    crc-32 "^0.3.0"
 
 posix-character-classes@^0.1.0:
   version "0.1.1"

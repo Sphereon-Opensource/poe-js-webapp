@@ -69,7 +69,7 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/vuetify',
     '@nuxtjs/sentry',
-    '@nuxtjs/google-analytics',
+    // '@nuxtjs/google-analytics',
     '@nuxtjs/sitemap'
   ],
 

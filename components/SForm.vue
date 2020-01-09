@@ -37,8 +37,9 @@
 
 <script>
   import isEqual from 'lodash/isEqual';
-  import {verifyFromBytes} from "@/services/verify";
   import {bytesFromFile} from "@/services/file";
+  import {verifyFilesFromBytes} from "@/services/verify";
+  import {retrieveAssertionMetadataFromBase64} from '@sphereon/openbadges-lib/dist/openbadges.service';
 
   export default {
     name: 'SForm',
@@ -99,26 +100,21 @@
         try {
           const {proofChainId} = process.env;
 
-          const fileVerifiers = this.fields.files
-            .map(file => {
-              return bytesFromFile(file)
-                .then(bytes => verifyFromBytes(bytes, proofChainId))
-                .then(blockchainEntry => {
-                  return {
-                    file,
-                    verified: true,
-                    blockchainEntry,
-                  };
-                })
-                .catch(() => {
-                  return {
-                    file,
-                    verified: false,
-                  };
-                });
-            });
+          const files = await Promise.all(
+            this.fields.files
+              .map(async file => {
+                const bytes = await bytesFromFile(file);
+                const base64 = Buffer.from(bytes).toString('base64');
+                const openbadges = await retrieveAssertionMetadataFromBase64(base64).catch(() => null);
+                return {
+                  name: file.name,
+                  bytes,
+                  openbadges
+                };
+              })
+          );
 
-          const verifications = await Promise.all(fileVerifiers);
+          const verifications = await verifyFilesFromBytes(files, proofChainId);
 
           this.$emit('submit', verifications);
 
