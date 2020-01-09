@@ -39,7 +39,11 @@
   import isEqual from 'lodash/isEqual';
   import {bytesFromFile} from "@/services/file";
   import {verifyFilesFromBytes} from "@/services/verify";
-  import {retrieveAssertionMetadataFromBase64} from '@sphereon/openbadges-lib/dist/openbadges.service';
+  import {
+    retrieveAssertionMetadataFromBase64,
+    retrieveBadgeClassFromUrl,
+    retrieveBadgeIssuerInfoFromUrl
+  } from '@sphereon/openbadges-lib/dist/openbadges.service';
 
   export default {
     name: 'SForm',
@@ -105,14 +109,25 @@
               .map(async file => {
                 const bytes = await bytesFromFile(file);
                 const base64 = Buffer.from(bytes).toString('base64');
-                const openbadges = await retrieveAssertionMetadataFromBase64(base64).catch(() => null);
+
+                const assertionInfo = await retrieveAssertionMetadataFromBase64(base64).catch(() => null);
+                const badgeClass = assertionInfo ? (await retrieveBadgeClassFromUrl(assertionInfo.badge).catch(() => null)) : null;
+                const issuerInfo = badgeClass ? (await retrieveBadgeIssuerInfoFromUrl(badgeClass.issuer).catch(() => null)) : null;
+
                 return {
                   name: file.name,
                   bytes,
-                  openbadges
+                  base64,
+                  openbadges: {
+                    assertion: assertionInfo,
+                    badge: badgeClass,
+                    issuer: issuerInfo,
+                  },
                 };
               })
           );
+
+          console.log(files.length);
 
           const verifications = await verifyFilesFromBytes(files, proofChainId);
 

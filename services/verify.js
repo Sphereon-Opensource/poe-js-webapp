@@ -36,11 +36,15 @@ const verifyFilesFromBytes = (files, chainId) => {
               name: file.name,
               verified: true,
               blockchainEntry,
+              base64: file.base64,
+              openbadges: file.openbadges,
             };
           }
           return {
             name: file.name,
             verified: false,
+            base64: file.base64,
+            openbadges: file.openbadges,
           };
         });
     });

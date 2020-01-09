@@ -100,7 +100,7 @@
       rules: {
         files: [
           v => !!v.length || 'Selecteer minimaal één bestand',
-          v => v.length <= 5 || 'Maximaal vijf bestanden toegestaan'
+          v => v.length <= 10 || 'Maximaal vijf bestanden toegestaan'
         ]
       },
 
