@@ -127,8 +127,6 @@
               })
           );
 
-          console.log(files.length);
-
           const verifications = await verifyFilesFromBytes(files, proofChainId);
 
           this.$emit('submit', verifications);
