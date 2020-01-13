@@ -44,8 +44,7 @@
 </script>
 
 <style lang="scss">
-  html, body {
-    height: 100%;
+  html, body {    height: 100%;
   }
 
   html.no-scroll {
@@ -67,6 +66,6 @@
 
 <style lang="scss" scoped>
   .theme--light.v-application {
-    background: #7E643A url('/blockchange/background.jpg') no-repeat center top / cover;
+    background: --v-secondary_dark-base url('/blockchange/background.jpg') no-repeat center top / cover;
   }
 </style>

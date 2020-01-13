@@ -84,7 +84,6 @@
 
   .v-card.verified {
     display: flex;
-    flex-direction: row;
     align-content: stretch;
     justify-content: flex-start;
     background-color: #4FE799;
