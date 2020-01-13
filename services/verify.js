@@ -25,6 +25,7 @@ const hashFile = bytes => {
 };
 
 const verifyFilesFromBytes = (files, chainId) => {
+  // TODO: Retrieve entries one by one so that an early entry will resolve early (https://github.com/PaulBernier/factomjs#iterating-entries-of-a-chain)
   return chainExists(chainId)
     .then(() => cli.getAllEntriesOfChain(chainId))
     .then(chainEntries => {
