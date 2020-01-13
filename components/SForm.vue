@@ -6,7 +6,7 @@
     novalidate
     @submit.prevent="submit"
   >
-    <slot />
+    <slot/>
     <slot
       name="alert"
       :error="error"
@@ -37,8 +37,13 @@
 
 <script>
   import isEqual from 'lodash/isEqual';
-
-  import { getFormData } from '@/assets/js/form';
+  import {bytesFromFile} from "@/services/file";
+  import {verifyFilesFromBytes} from "@/services/verify";
+  import {
+    retrieveAssertionMetadataFromBase64,
+    retrieveBadgeClassFromUrl,
+    retrieveBadgeIssuerInfoFromUrl
+  } from '@sphereon/openbadges-lib/dist/openbadges.service';
 
   export default {
     name: 'SForm',
@@ -97,15 +102,34 @@
         this.submitting = true;
 
         try {
-          const formData = getFormData(this.fields);
+          const {proofChainId} = process.env;
 
-          const response = await this.$axios.$post(this._action, formData, {
-            headers: {
-              'Content-Type': 'multipart/formdata'
-            }
-          });
+          const files = await Promise.all(
+            this.fields.files
+              .map(async file => {
+                const bytes = await bytesFromFile(file);
+                const base64 = Buffer.from(bytes).toString('base64');
 
-          this.$emit('submit', response);
+                const assertionInfo = await retrieveAssertionMetadataFromBase64(base64).catch(() => null);
+                const badgeClass = assertionInfo ? (await retrieveBadgeClassFromUrl(assertionInfo.badge).catch(() => null)) : null;
+                const issuerInfo = badgeClass ? (await retrieveBadgeIssuerInfoFromUrl(badgeClass.issuer).catch(() => null)) : null;
+
+                return {
+                  name: file.name,
+                  bytes,
+                  base64,
+                  openbadges: {
+                    assertion: assertionInfo,
+                    badge: badgeClass,
+                    issuer: issuerInfo,
+                  },
+                };
+              })
+          );
+
+          const verifications = await verifyFilesFromBytes(files, proofChainId);
+
+          this.$emit('submit', verifications);
 
           this.$refs.form.reset();
         } catch (error) {

@@ -25,10 +25,10 @@
         </template>
       </v-file-input>
       <template v-if="$vuetify.breakpoint.smAndUp">
-        <v-divider class="my-4" />
-        <s-drop-files v-model="fields.files" />
+        <v-divider class="my-4"/>
+        <s-drop-files v-model="fields.files"/>
       </template>
-      <v-divider class="my-4" />
+      <v-divider class="my-4"/>
       <template v-slot:action="{ disabled, submitting }">
         <v-btn
           :disabled="disabled"
@@ -51,18 +51,30 @@
       </template>
     </s-form>
     <v-expand-transition>
-      <div v-if="verified.length">
+      <div v-if="verified.length || notVerified.length">
         <div class="title primary--text mt-4">
           Status
         </div>
-        <v-divider class="mt-1 mb-2" />
-        <div class="subtitle-1 mb-2">
-          Geverifieerde bestanden
+        <div v-if="verified.length">
+          <v-divider class="mt-1 mb-2"/>
+          <div class="subtitle-1 mb-2">
+            Geverifieerde bestanden
+          </div>
+          <s-status
+            :items="verified"
+            :truncate-length="$vuetify.breakpoint.xsOnly ? 22 : Infinity"
+          />
         </div>
-        <s-status
-          :items="verified"
-          :truncate-length="$vuetify.breakpoint.xsOnly ? 22 : Infinity"
-        />
+        <div v-if="notVerified.length">
+          <v-divider class="mt-1 mb-2"/>
+          <div class="subtitle-1 mb-2">
+            Niet geverifieerde bestanden
+          </div>
+          <s-status
+            :items="notVerified"
+            :truncate-length="$vuetify.breakpoint.xsOnly ? 22 : Infinity"
+          />
+        </div>
       </div>
     </v-expand-transition>
   </div>
@@ -76,11 +88,11 @@
   export default {
     name: 'FormVerify',
 
-    components: { SStatus, SDropFiles, SForm },
+    components: {SStatus, SDropFiles, SForm},
 
     data: () => ({
       fields: process.env.NODE_ENV === 'development' ? {
-        files: [ new File([], `test-${Date.now()}.pdf`) ]
+        files: [new File([], `test-${Date.now()}.pdf`)]
       } : {
         files: []
       },
@@ -88,23 +100,27 @@
       rules: {
         files: [
           v => !!v.length || 'Selecteer minimaal één bestand',
-          v => v.length <= 5 || 'Maximaal vijf bestanden toegestaan'
+          v => v.length <= 10 || 'Maximaal tien bestanden toegestaan'
         ]
       },
 
-      verified: []
+      verified: [],
+
+      notVerified: [],
     }),
 
     methods: {
       preSubmit() {
         this.verified = [];
+        this.notVerified = [];
       },
 
       submit(response) {
-        // TODO: handle response
-        console.log(response);
+        this.verified = response
+          .filter(verification => verification.verified);
 
-        this.verified = [ ...this.fields.files ];
+        this.notVerified = response
+          .filter(verification => !verification.verified);
       }
     }
   }
