@@ -70,13 +70,6 @@
     data: () => ({
       blocks: [
         {
-          icon: '/sign.svg',
-          title: 'Vastleggen',
-          text: `We just store a unique cryptographic key that represents the digital objects.
-          It is important to understand that the files themselves are not stored in the Blockchain.`,
-          to: '/vastleggen'
-        },
-        {
           icon: '/verify.svg',
           title: 'Verifiëren',
           text: `We just store a unique cryptographic key that represents the digital objects.
