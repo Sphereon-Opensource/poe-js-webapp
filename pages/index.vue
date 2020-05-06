@@ -1,12 +1,10 @@
 <template>
   <layout-home>
     <h1 :class="[ $vuetify.breakpoint.xsOnly ? 'display-1' : 'display-3', 'font-weight-bold mb-4 white--text' ]">
-      Leg vast. Check, controleer en verifieer
+      {{ _title }}
     </h1>
     <p class="body-1 tertiary--text">
-      This is meant as a demo-page for those interested in Blockchain as a
-      technology. It is a real-life Blockchain demo, which allows you to upload,
-      free-of-charge, up to 5 objects at a time.
+      {{ _mainText }}
     </p>
     <v-row
       justify="center"

@@ -25,10 +25,10 @@
         </template>
       </v-file-input>
       <template v-if="$vuetify.breakpoint.smAndUp">
-        <v-divider class="my-4" />
-        <s-drop-files v-model="fields.files" />
+        <v-divider class="my-4"/>
+        <s-drop-files v-model="fields.files"/>
       </template>
-      <v-divider class="my-4" />
+      <v-divider class="my-4"/>
       <template v-slot:action="{ disabled, submitting }">
         <v-btn
           :disabled="disabled"
@@ -91,11 +91,11 @@
   export default {
     name: 'FormVerify',
 
-    components: { SStatus, SDropFiles, SForm },
+    components: {SStatus, SDropFiles, SForm},
 
     data: () => ({
       fields: process.env.NODE_ENV === 'development' ? {
-        files: [ new File([ base64StringToBlob(base64TestFile, "application/json") ], `UniversityDegreeCredentialV1.json`) ]
+        files: [new File([ base64StringToBlob(base64TestFile, "application/json") ], `UniversityDegreeCredentialV1.json`)]
       } : {
         files: []
       },
@@ -103,7 +103,7 @@
       rules: {
         files: [
           v => !!v.length || 'Selecteer minimaal één bestand',
-          v => v.length <= 5 || 'Maximaal vijf bestanden toegestaan'
+          v => v.length <= 10 || 'Maximaal tien bestanden toegestaan'
         ]
       },
 

@@ -1,30 +1,30 @@
 <template>
   <v-app>
-    <s-header />
+    <s-header/>
     <v-content role="main">
       <slot>
-        <nuxt />
+        <nuxt/>
       </slot>
     </v-content>
   </v-app>
 </template>
 
 <script>
-  import { mapState } from 'vuex';
+  import {mapState} from 'vuex';
 
   import SHeader from '@/components/SHeader';
 
   export default {
     name: 'Default',
 
-    components: { SHeader },
+    components: {SHeader},
 
     data: () => ({
       scrollY: 0
     }),
 
     computed: {
-      ...mapState('page', [ 'noScroll' ])
+      ...mapState('page', ['noScroll'])
     },
 
     watch: {
@@ -67,6 +67,6 @@
 
 <style lang="scss" scoped>
   .theme--light.v-application {
-    background: var(--v-secondary-base) url('/background.jpg') no-repeat center top / cover;
+    background: --v-secondary_dark-base url('/blockchange/background.jpg') no-repeat center top / cover;
   }
 </style>

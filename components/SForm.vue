@@ -97,15 +97,25 @@
         this.submitting = true;
 
         try {
-          const formData = getFormData(this.fields);
+          const {proofChainId} = process.env;
 
-          const response = await this.$axios.$post(this._action, formData, {
-            headers: {
-              'Content-Type': 'multipart/formdata'
-            }
-          });
+          const files = await Promise.all(
+            this.fields.files
+              .map(async file => {
+                const bytes = await bytesFromFile(file);
+                const base64 = Buffer.from(bytes).toString('base64');
 
-          this.$emit('submit', response);
+                return {
+                  name: file.name,
+                  bytes,
+                  base64,
+                };
+              })
+          );
+
+          const verifications = await verifyFilesFromBytes(files, proofChainId);
+
+          this.$emit('submit', verifications);
 
           this.$refs.form.reset();
         } catch (error) {
