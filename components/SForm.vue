@@ -6,7 +6,7 @@
     novalidate
     @submit.prevent="submit"
   >
-    <slot />
+    <slot/>
     <slot
       name="alert"
       :error="error"
@@ -37,8 +37,8 @@
 
 <script>
   import isEqual from 'lodash/isEqual';
-  import {bytesFromFile} from "@/services/file";
-  import {verifyFilesFromBytes} from "@/services/verify";
+  import {loadVerifiableCredential} from "@/services/credentialFile";
+  import {verifyJsonCredential} from "@/services/verify";
 
   export default {
     name: 'SForm',
@@ -85,7 +85,7 @@
     },
 
     methods: {
-      async submit() {
+      submit: async function () {
         this.error = false;
 
         this.$emit('pre-submit');
@@ -97,26 +97,24 @@
         this.submitting = true;
 
         try {
-          const {proofChainId} = process.env;
-
           const files = await Promise.all(
             this.fields.files
-              .map(async file => {
-                const bytes = await bytesFromFile(file);
-                const base64 = Buffer.from(bytes).toString('base64');
+            .map(async file => {
+              const vcObject = await loadVerifiableCredential(file);
 
-                return {
-                  name: file.name,
-                  bytes,
-                  base64,
-                };
-              })
+              return {
+                name: file.name,
+                vcObject
+              };
+            })
           );
 
-          const verifications = await verifyFilesFromBytes(files, proofChainId);
-
+          const verifications = await Promise.all(
+            files.map(async file => {
+              return await verifyJsonCredential(file);
+            })
+          );
           this.$emit('submit', verifications);
-
           this.$refs.form.reset();
         } catch (error) {
           /* eslint-disable-next-line */
