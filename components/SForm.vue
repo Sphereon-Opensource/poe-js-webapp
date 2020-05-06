@@ -37,8 +37,8 @@
 
 <script>
   import isEqual from 'lodash/isEqual';
-
-  import { getFormData } from '@/assets/js/form';
+  import {bytesFromFile} from "@/services/file";
+  import {verifyFilesFromBytes} from "@/services/verify";
 
   export default {
     name: 'SForm',
