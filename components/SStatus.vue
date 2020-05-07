@@ -51,13 +51,17 @@
         return [...this.items]
         .filter(item => item.verified)
         .map(item => itemWithName(item, this.truncateLength))
-        .sort((itemA, itemB) => itemA.blockchainEntry.timestamp - itemB.blockchainEntry.timestamp);
       },
 
       _notVerified() {
         return [...this.items]
         .filter(item => !item.verified)
-        .map(item => itemWithName(item, this.truncateLength));
+        .map(item => {
+          if (item.message) {
+            console.log("Veridication of file " + item.name + "failed: " + item.message);
+          }
+          return itemWithName(item, this.truncateLength)
+        });
       }
     }
   }

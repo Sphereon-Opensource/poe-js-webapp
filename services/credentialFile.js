@@ -1,33 +1,83 @@
+/**
+ * This module loads & transforms various JSON verifiable credential formats to the Transmute specifications.
+ */
 
+const CredentialType = Object.freeze({
+  Unknown: Symbol(0),
+  VerifiableCredential: Symbol(1),
+  VerifiableCredentialWrapped: Symbol(2),
+  VerifiablePresentation: Symbol(3),
+  VerifiablePresentationWrapped: Symbol(4)
+});
 
-const assertVerifiableCredentialType = vc => {
-  let vcCursor = vc["verifiableCredential"] ? vc["verifiableCredential"] : vc;
-  vcCursor = vcCursor["type"];
-  if (!vcCursor) {
-    throw new TypeError("Invalid VC format, no type value was found.");
+const scanType = (vcCursor, wrapped) => {
+  let foundVCType = CredentialType.Unknown;
+  if (!Array.isArray(vcCursor)) {
+    vcCursor = [vcCursor];
   }
-  let foundVCType = false;
   vcCursor.forEach(function (vcType) {
-    console.log("vcType: " + vcType);
     if (vcType === "VerifiableCredential") {
-      foundVCType = true;
+      foundVCType = wrapped ? CredentialType.VerifiableCredentialWrapped
+          : CredentialType.VerifiableCredential;
+    } else if (vcType === "VerifiablePresentation") {
+      foundVCType = wrapped ? CredentialType.VerifiablePresentationWrapped
+          : CredentialType.VerifiablePresentation;
     }
   });
-  if (!foundVCType) {
-    throw new TypeError(
-      "Invalid VC format, no type value 'VerifiableCredential' was found.");
+  return foundVCType;
+}
+
+const getVerifiableCredentialType = (vc) => {
+  let vcCursor = vc["type"];
+  if (vcCursor) {
+    return scanType(vcCursor, false);
+  }
+  vcCursor = vc["verifiableCredential"];
+  if (!vcCursor) {
+    vcCursor = vc["verifiablePresentation"];
+  }
+  if (vcCursor) {
+    vcCursor = vcCursor["type"];
+  }
+  if (vcCursor) {
+    return scanType(vcCursor, true);
+  } else {
+    return CredentialType.Unknown;
   }
 }
 
-const injectVerifiableCredential = vcJson => {
-  const vc = JSON.parse(vcJson);
-  assertVerifiableCredentialType(vc);
-  if (!vc["verifiableCredential"]) {
-    const wrapper = {"verifiableCredential": vc}
-    console.log(wrapper);
-    return wrapper;
+const extractChallengeValue = (vc) => {
+  let vcCursor = vc["proof"];
+  if (!vcCursor) {
+    throw new TypeError("Invalid VC format, no proof section was found.");
   }
-  return vcJson;
+  vcCursor = vcCursor["challenge"];
+  if (!vcCursor) {
+    throw new TypeError("Invalid VC format, no proof/challenge value was found.");
+  }
+  return vcCursor;
+}
+
+const transformVerifiableCredential = vcJson => {
+  const vc = JSON.parse(vcJson);
+  const credentialType = getVerifiableCredentialType(vc);
+  const vcObject = {
+    credentialType
+  };
+  switch (credentialType) {
+    case CredentialType.VerifiableCredential:
+      vcObject["payload"] = {"verifiableCredential": vc};
+      break;
+    case CredentialType.VerifiablePresentation:
+      vcObject["payload"] = {"verifiablePresentation": vc, "options": {"challenge": extractChallengeValue(vc)}};
+      break;
+    case CredentialType.Unknown:
+      throw new TypeError(
+          "Invalid VC format, only types VerifiableCredential & VerifiablePresentation are currently supported.");
+    default:
+      vcObject["payload"] = vcJson;
+  }
+  return vcObject;
 }
 
 const loadVerifiableCredential = file => {
@@ -35,7 +85,13 @@ const loadVerifiableCredential = file => {
   fileReader.readAsBinaryString(file);
   return new Promise((resolve, reject) => {
     fileReader.onload = () => {
-      resolve(injectVerifiableCredential(fileReader.result));
+      try {
+        let vcObject = transformVerifiableCredential(fileReader.result);
+        vcObject["name"] = file.name;
+        resolve(vcObject);
+      } catch (err) {
+        reject(err);
+      }
     };
     fileReader.onerror = err => {
       reject(err);
@@ -43,4 +99,4 @@ const loadVerifiableCredential = file => {
   });
 };
 
-export {loadVerifiableCredential};
+export {loadVerifiableCredential, CredentialType};

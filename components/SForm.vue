@@ -38,7 +38,7 @@
 <script>
   import isEqual from 'lodash/isEqual';
   import {loadVerifiableCredential} from "@/services/credentialFile";
-  import {verifyJsonCredential} from "@/services/verify";
+  import {verifyCredential} from "@/services/verify";
 
   export default {
     name: 'SForm',
@@ -97,21 +97,16 @@
         this.submitting = true;
 
         try {
-          const files = await Promise.all(
+          const vcObjects = await Promise.all(
             this.fields.files
             .map(async file => {
-              const vcObject = await loadVerifiableCredential(file);
-
-              return {
-                name: file.name,
-                vcObject
-              };
+              return  await loadVerifiableCredential(file);
             })
           );
 
           const verifications = await Promise.all(
-            files.map(async file => {
-              return await verifyJsonCredential(file);
+            vcObjects.map(async vcObject => {
+              return await verifyCredential(vcObject);
             })
           );
           this.$emit('submit', verifications);
