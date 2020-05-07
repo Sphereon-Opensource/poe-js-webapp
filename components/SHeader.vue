@@ -84,9 +84,7 @@
       },
 
       logo() {
-        return (this.$store.state.page.layout === 'two' &&
-          this.$vuetify.breakpoint.smAndUp) ||
-        this.sticky ? '/blockchange/logo-light.svg' : '/blockchange/logo-dark.svg';
+        return '/factom/logo-light.png';
       }
     },
 
@@ -136,6 +134,7 @@
     right: 0;
     left: 0;
     z-index: 200;
+    background-color: #142c3c;
 
     transition: $transition;
     transition-property: background-color, box-shadow;

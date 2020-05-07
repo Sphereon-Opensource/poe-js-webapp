@@ -7,7 +7,7 @@
     >
       <div class="badge-info">
         <p>
-          Verification result: {{ verification.verified }}
+          The Verifiable {{ verification.verified }} , was successfully verified
         </p>
       </div>
     </v-card>
