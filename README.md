@@ -50,10 +50,15 @@ Windows:
 yarn win-dev
 ```
 
-Build for production and launch server
+Build for production and launch server on Linux
 ```bash
 yarn build
 yarn start
+```
+Build for production and launch server on Windows
+```bash
+yarn build-win
+yarn start-win
 ```
 
 ```bash

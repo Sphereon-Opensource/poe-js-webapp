@@ -1,20 +1,22 @@
 <template>
   <div class="s-status">
     <v-card
-      v-for="(verification, key) in _verified"
-      :key="key"
-      class="mr-2 mb-2 verified"
+        v-for="(verification, key) in _verified"
+        :key="key"
+        class="mr-2 mb-2 verified"
     >
       <div class="badge-info">
         <p>
-          The Verifiable {{ verification.verified }} , was successfully verified
+          The Verifiable {{ getCredentialTypeDescription(verification.credentialType) }}
+          &quot;{{ verification.name.replace(/\.[^/.]+$/, "") }}&quot;, was successfully
+          verified.
         </p>
       </div>
     </v-card>
     <v-card
-      v-for="(verification, key) in _notVerified"
-      :key="key"
-      class="mr-2 mb-2 not-verified"
+        v-for="(verification, key) in _notVerified"
+        :key="key"
+        class="mr-2 mb-2 not-verified"
     >
       <p>
         {{ verification.name }}
@@ -25,6 +27,7 @@
 
 <script>
   import {truncate} from '@/assets/js/text';
+  import {CredentialType} from "@/services/credentialFile";
 
   const itemWithName = (item, truncateLength) => ({
     ...item,
@@ -45,7 +48,17 @@
         default: 22
       }
     },
-
+    methods: {
+      getCredentialTypeDescription(credentialType) {
+        switch (credentialType) {
+          case CredentialType.VerifiablePresentation:
+          case CredentialType.VerifiablePresentationWrapped:
+            return "Presentation";
+          default:
+            return "Credential";
+        }
+      }
+    },
     computed: {
       _verified() {
         return [...this.items]
@@ -62,7 +75,7 @@
           }
           return itemWithName(item, this.truncateLength)
         });
-      }
+      },
     }
   }
 </script>

@@ -40,7 +40,7 @@
           large
           rounded
         >
-          Bestanden verifiëren
+          Verifify files
           <v-icon
             right
             size="24"
@@ -58,7 +58,7 @@
         <div v-if="verified.length">
         <v-divider class="mt-1 mb-2" />
         <div class="subtitle-1 mb-2">
-          Geverifieerde bestanden
+          Verified files
         </div>
         <s-status
           :items="verified"
@@ -68,7 +68,7 @@
         <div v-if="notVerified.length">
           <v-divider class="mt-1 mb-2"/>
           <div class="subtitle-1 mb-2">
-            Niet geverifieerde bestanden
+            Rejected files
           </div>
           <s-status
             :items="notVerified"
@@ -102,8 +102,8 @@
 
       rules: {
         files: [
-          v => !!v.length || 'Selecteer minimaal één bestand',
-          v => v.length <= 10 || 'Maximaal tien bestanden toegestaan'
+          v => !!v.length || 'Select at least one file.',
+          v => v.length <= 10 || 'A maximum of ten files is allowed.'
         ]
       },
 

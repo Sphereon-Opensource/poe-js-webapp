@@ -68,9 +68,9 @@
     },
 
     head: () => ({
-      title: 'Verifiëren - Document Sign',
+      title: process.env.verify_title,
       meta: [
-        {hid: 'description', name: 'description', content: 'Verify your digital documents'}
+        {hid: 'description', name: 'description', content: process.env.verify_text}
       ]
     })
   }

@@ -7,11 +7,11 @@ export default {
   ** Headers of the page
   */
   head: {
-    title: 'Document Sign',
+    title: 'Verifiable Credentials',
     meta: [
       {charset: 'utf-8'},
       {name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'},
-      {hid: 'description', name: 'description', content: 'Document Sign'}
+      {hid: 'description', name: 'description', content: 'Verifiable Credentials'}
     ],
     link: [
       {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'}
@@ -30,18 +30,18 @@ export default {
     disablePageMoreInfo: true,
     disablePageContact: true,
 
-    main_title: process.env.MAIN_TITLE || 'Leg vast. Check, controleer en verifieer',
-    main_text: process.env.MAIN_TEXT || 'This is meant as a demo-page for those interested in Blockchain as a technology. It is a real-life Blockchain demo, which allows you to upload, free-of-charge, up to 5 objects at a time.',
+    main_title: process.env.MAIN_TITLE || 'Factom Verifiable Credentials',
+    main_text: process.env.MAIN_TEXT || 'In this portal you can check the validity of Verifiable Credentials.',
 
-    main_card_verify_title: process.env.MAIN_CARD_VERIFY_TITLE || 'Verifiëren',
-    main_card_verify_text: process.env.MAIN_CARD_VERIFY_TEXT || 'We just store a unique cryptographic key that represents the digital objects. This guarantees your privacy and confidentiality.',
+    main_card_verify_title: process.env.MAIN_CARD_VERIFY_TITLE || 'Verify',
+    main_card_verify_text: process.env.MAIN_CARD_VERIFY_TEXT || 'The credential files you upload here are not being stored any permanent storage device. When the credential file validation is successful, its authenticity is guaranteed.',
 
-    verify_title: process.env.VERIFY_TITLE || 'Verify your digital documents',
-    verify_text: process.env.VERIFY_TEXT || 'This is meant as a demo-page for those interested in Blockchain as a technology. It is a real-life Blockchain demo, which allows you to upload, free-of-charge, up to 5 objects at a time.',
-    verify_sub_title: process.env.VERIFY_SUB_TITLE || 'Process documents',
-    verify_sub_text: process.env.VERIFY_SUB_TEXT || 'Use Sphereon as a Gateway to process documents and unstructured data and integrate these with Ethereum, Factom, HyperLedger, MultiCoin, VeChain, etc, to create immutable and independent verifiable records of transactions and Proof of Authenticity of documents, emails and other information objects.\n',
-    verify_card_title: process.env.VERIFY_CARD_TITLE || 'Verifiëren',
-    verify_card_text: process.env.VERIFY_CARD_TEXT || 'We just store a unique cryptographic digital key that represents the digital objects. It is important to understand that the files themselves are not stored in the Blockchain or any of our systems for that matter.',
+    verify_title: process.env.VERIFY_TITLE || 'Verifiable Credentials Verification Page',
+    verify_text: process.env.VERIFY_TEXT || 'Check here if the credentials & claims that are made in your file are authentic.',
+    verify_sub_title: process.env.VERIFY_SUB_TITLE || ' ',
+    verify_sub_text: process.env.VERIFY_SUB_TEXT || '',
+    verify_card_title: process.env.VERIFY_CARD_TITLE || 'Verify',
+    verify_card_text: process.env.VERIFY_CARD_TEXT || 'The credential files you upload here are not being stored any permanent storage device. When the credential file validation is successful, its authenticity is guaranteed. ',
 
     theme: 'blockchange',
   },

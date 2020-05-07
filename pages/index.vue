@@ -45,7 +45,7 @@
               color="tertiary"
               class="px-12 py-6 black--text"
             >
-              Starten
+              Start
             </v-btn>
           </s-card-actions>
         </s-card>
@@ -69,16 +69,15 @@
       blocks: [
         {
           icon: '/verify.svg',
-          title: 'Verifiëren',
-          text: `We just store a unique cryptographic key that represents the digital objects.
-          This guarantees your privacy and confidentiality.`,
+          title: process.env.main_card_verify_title,
+          text: process.env.main_text,
           to: '/verifieren'
         }
       ]
     }),
 
     head: () => ({
-      title: 'Document Sign',
+      title: process.env.main_title,
       meta: [
         { hid: 'description', name: 'description', content: 'Document Sign' }
       ]

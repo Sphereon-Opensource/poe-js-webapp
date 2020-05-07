@@ -21,9 +21,7 @@
         Sign your digital documents
       </h1>
       <p class="body-1 primary--text">
-        This is meant as a demo-page for those interested in Blockchain as a
-        technology. It is a real-life Blockchain demo, which allows you to
-        upload, free-of-charge, up to 5 objects a a time.
+        {{ process.env.main_text }}
       </p>
       <h2 class="title font-weight-bold">
         Process documents

@@ -42,6 +42,7 @@ function verifyCredential(vcObject) {
             resolve({
               name: vcObject.name,
               verified: true,
+              credentialType: vcObject.credentialType
             });
           } else {
             resolve({
