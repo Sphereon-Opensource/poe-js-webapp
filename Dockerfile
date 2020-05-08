@@ -1,5 +1,6 @@
 FROM node:12.13.0
 WORKDIR /opt/poe-js-webapp
+COPY .env ./
 COPY package*.json ./
 RUN yarn policies set-version 1.21.1
 RUN yarn install

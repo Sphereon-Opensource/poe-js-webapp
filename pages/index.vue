@@ -42,7 +42,7 @@
               :to="item.to"
               :block="$vuetify.breakpoint.xsOnly"
               rounded
-              color="tertiary"
+              color="primary"
               class="px-12 py-6 black--text"
             >
               Start
