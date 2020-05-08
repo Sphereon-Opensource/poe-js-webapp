@@ -17,7 +17,7 @@ const defaultTheme = {
   themes: {
     light: {
       anchor: '#4fe799',
-      primary: '#5000ff',
+      primary: '#467aa2',
       secondary: '#1f2041',
       secondary_dark: '#1f2041',
       tertiary: '#4fe799',
@@ -39,7 +39,7 @@ const blockchangeTheme = {
   themes: {
     light: {
       anchor: '#EA4E1B',
-      primary: '#F9B234',
+      primary: '#467aa2',
       secondary: '#E7302A',
       secondary_dark: '#7E643A',
       tertiary: '#F29200',

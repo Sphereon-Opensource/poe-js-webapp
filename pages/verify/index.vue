@@ -17,7 +17,7 @@
     <template v-slot:right>
       <s-card class="mx-sm-3 mx-md-6 mx-lg-12">
         <s-card-title
-          icon="/blockchange/verify.svg"
+          icon="/verify.svg"
           class="primary--text"
         >
           {{ _card_title }}

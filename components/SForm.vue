@@ -17,7 +17,7 @@
         text
         transition="fade-transition"
       >
-        Er is een onbekende fout opgetreden, probeer het nogmaals.
+        An error occurred, please try again. <br />(error details can be found in the browser's development console)
       </v-alert>
     </slot>
     <slot

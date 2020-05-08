@@ -40,7 +40,7 @@
           large
           rounded
         >
-          Verifify files
+          Verify files
           <v-icon
             right
             size="24"
