@@ -1,15 +1,15 @@
 <template>
   <layout-two>
     <template v-slot:left>
-      <h1 class="display-2 font-weight-bold mb-4">
+      <h2 class="display-2 font-weight-bold mb-4">
         {{ _title }}
-      </h1>
+      </h2>
       <p class="body-1 primary--text">
         {{ _text }}
       </p>
-      <h2 class="title font-weight-bold">
+      <h3 class="title font-weight-bold">
         {{ _subtitle }}
-      </h2>
+      </h3>
       <p class="body-1">
         {{ _subtext }}
       </p>
