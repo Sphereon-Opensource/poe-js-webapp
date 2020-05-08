@@ -16,7 +16,7 @@
       <v-file-input
         v-model="fields.files"
         :rules="rules.files"
-        label="Bestanden"
+        label="Files"
         multiple
         counter
         :truncate-length="$vuetify.breakpoint.smAndUp ? 22 : 16"
@@ -46,7 +46,7 @@
           large
           rounded
         >
-          Bestanden uploaden
+          Upload files
           <v-icon
             right
             size="24"
@@ -77,7 +77,7 @@
             class="my-3"
           />
           <div class="subtitle-1 mb-2">
-            Niet geverifieerde bestanden
+            Rejected files
           </div>
           <s-status
             :items="unverified"

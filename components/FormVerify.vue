@@ -9,7 +9,7 @@
       <v-file-input
         v-model="fields.files"
         :rules="rules.files"
-        label="Bestanden"
+        label="Files"
         multiple
         counter
         chips

@@ -6,8 +6,8 @@
     </s-card-title>
     <s-card-text>
       <p>
-        De opgevraagde pagina kan helaas niet gevonden worden. De pagina bestaat mogelijk niet, is verplaatst of verwijderd.<br>
-        Klik <nuxt-link to="/" title="Home">hier</nuxt-link> om terug te keren naar de homepagina.
+        The requested page could not be found. The page may not exists or was removed.<br>
+        Click <nuxt-link to="/" title="Home">here</nuxt-link> to return to the home page.
       </p>
     </s-card-text>
   </s-card>
