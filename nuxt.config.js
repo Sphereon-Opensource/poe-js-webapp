@@ -34,14 +34,14 @@ export default {
     main_text: process.env.MAIN_TEXT || 'In this portal you can check the validity of Verifiable Credentials.',
 
     main_card_verify_title: process.env.MAIN_CARD_VERIFY_TITLE || 'Verify',
-    main_card_verify_text: process.env.MAIN_CARD_VERIFY_TEXT || 'The credential files you upload here are not being stored any permanent storage device. When the credential file validation is successful, its authenticity is guaranteed.',
+    main_card_verify_text: process.env.MAIN_CARD_VERIFY_TEXT || 'The credential files you upload here are not being stored on any permanent storage device. When the credential file validation is successful, its authenticity is guaranteed.',
 
     verify_title: process.env.VERIFY_TITLE || 'Verifiable Credentials Verification Page',
     verify_text: process.env.VERIFY_TEXT || 'Check here if the credentials & claims that are made in your file are authentic.',
     verify_sub_title: process.env.VERIFY_SUB_TITLE || ' ',
     verify_sub_text: process.env.VERIFY_SUB_TEXT || '',
     verify_card_title: process.env.VERIFY_CARD_TITLE || 'Verify',
-    verify_card_text: process.env.VERIFY_CARD_TEXT || 'The credential files you upload here are not being stored any permanent storage device. When the credential file validation is successful, its authenticity is guaranteed. ',
+    verify_card_text: process.env.VERIFY_CARD_TEXT || 'The credential files you upload here are not being stored on any permanent storage device. When the credential file validation is successful, its authenticity is guaranteed. ',
 
     theme: 'blockchange',
   },

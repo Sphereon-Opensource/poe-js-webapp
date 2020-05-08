@@ -6,7 +6,7 @@
           icon="/sign.svg"
           class="primary--text"
         >
-          Vastleggen
+          register
         </s-card-title>
         <s-card-text>
           We just store a unique cryptographic digital key that represents the digital objects. It
@@ -59,7 +59,7 @@
     components: { FormSign, SCardText, SCardTitle, SCard, LayoutOne },
 
     head: () => ({
-      title: 'Vastleggen - Document Sign',
+      title: 'register - Document Sign',
       meta: [
         { hid: 'description', name: 'description', content: 'Document Sign' }
       ]

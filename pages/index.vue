@@ -71,7 +71,7 @@
           icon: '/verify.svg',
           title: process.env.main_card_verify_title,
           text: process.env.main_text,
-          to: '/verifieren'
+          to: '/verify'
         }
       ]
     }),
