@@ -22,7 +22,10 @@ export default {
   /*
   ** Configure environment variables
    */
-  env: {},
+  env: {
+    API_PROXY_SUBDOMAIN: process.env.VUE_APP_API_PROXY_SUBDOMAIN || "bcproof-api",
+    BLOCKCHAIN_PROOF_CONFIG_NAME: process.env.VUE_APP_BLOCKCHAIN_PROOF_CONFIG_NAME || "multichain"
+  },
 
   /*
   ** Customize the progress-bar color
@@ -77,6 +80,10 @@ export default {
       '~/middleware/logger.js'
     ]
   ],
+
+  server: {
+    host: '0.0.0.0'
+  },
 
   /*
   ** Axios module configuration

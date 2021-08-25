@@ -1,0 +1,15 @@
+http:
+  routers:
+    router-sander:
+      entryPoints:
+        - web
+      service: service-sander
+      priority: 100
+      rule: Host(`ubuntuaws.localhost.com`)
+
+  services:
+    service-sander:
+      loadBalancer:
+        servers:
+          - url: http://192.168.1.200:3000
+

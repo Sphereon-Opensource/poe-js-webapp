@@ -1,0 +1,16 @@
+http:
+  routers:
+    router-bcproof:
+      entryPoints:
+        - web
+      middlewares:
+        - traefik-forward-auth@docker
+      service: bcproof-service
+      priority: 200
+      rule: Host(`bcproof-api.ubuntuaws.localhost.com`) && Path(`/blockchain/proof/0.10/existence/multichain/content`)
+
+  services:
+    bcproof-service:
+      loadBalancer:
+        servers:
+          - url: https://gw.api.cloud.sphereon.com

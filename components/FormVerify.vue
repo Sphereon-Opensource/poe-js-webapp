@@ -25,10 +25,10 @@
         </template>
       </v-file-input>
       <template v-if="$vuetify.breakpoint.smAndUp">
-        <v-divider class="my-4" />
-        <s-drop-files v-model="fields.files" />
+        <v-divider class="my-4"/>
+        <s-drop-files v-model="fields.files"/>
       </template>
-      <v-divider class="my-4" />
+      <v-divider class="my-4"/>
       <template v-slot:action="{ disabled, submitting }">
         <v-btn
           :disabled="disabled"
@@ -55,7 +55,7 @@
         <div class="title primary--text mt-4">
           Status
         </div>
-        <v-divider class="mt-1 mb-2" />
+        <v-divider class="mt-1 mb-2"/>
         <div class="subtitle-1 mb-2">
           Geverifieerde bestanden
         </div>
@@ -69,43 +69,51 @@
 </template>
 
 <script>
-  import SForm from '@/components/SForm';
-  import SDropFiles from '@/components/SDropFiles';
-  import SStatus from '@/components/SStatus';
+import SForm from '@/components/SForm';
+import SDropFiles from '@/components/SDropFiles';
+import SStatus from '@/components/SStatus';
 
-  export default {
-    name: 'FormVerify',
+export default {
+  name: 'FormVerify',
 
-    components: { SStatus, SDropFiles, SForm },
+  components: {SStatus, SDropFiles, SForm},
 
-    data: () => ({
-      fields: process.env.NODE_ENV === 'development' ? {
-        files: [ new File([], `test-${Date.now()}.pdf`) ]
-      } : {
-        files: []
-      },
+  data: () => ({
+    fields: process.env.NODE_ENV === 'development' ? {
+      files: [new File([], `test-${Date.now()}.pdf`)],
+      operation: "verify"
+    } : {
+      files: [],
+      operation: "verify",
+      registered: []
+    },
 
-      rules: {
-        files: [
-          v => !!v.length || 'Selecteer minimaal één bestand',
-          v => v.length <= 5 || 'Maximaal vijf bestanden toegestaan'
-        ]
-      },
+    rules: {
+      files: [
+        v => !!v.length || 'Selecteer minimaal één bestand',
+        v => v.length <= 5 || 'Maximaal vijf bestanden toegestaan'
+      ]
+    },
 
-      verified: []
-    }),
+    verified: [],
+    unverified: []
+  }),
 
-    methods: {
-      preSubmit() {
-        this.verified = [];
-      },
+  methods: {
+    preSubmit() {
+      this.verified = [];
+      this.unverified = [];
+    },
 
-      submit(response) {
-        // TODO: handle response
-        console.log(response);
-
-        this.verified = [ ...this.fields.files ];
-      }
+    submit(response) {
+      // TODO: handle response
+      console.log(response);
+      this.fields.files.forEach(file => {
+        if (this.fields.registered.contains(file.name)) {
+          this.verified.push(file)
+        }
+      })
     }
   }
+}
 </script>

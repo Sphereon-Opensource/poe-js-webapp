@@ -102,10 +102,12 @@
     data: () => ({
       fields: process.env.NODE_ENV === 'development' ? {
         email: `janedoe-${Date.now()}@softmedia.nl`,
-        files: [ new File([], `test-${Date.now()}.pdf`) ]
+        files: [ new File([], `test-${Date.now()}.pdf`) ],
+        operation: "register"
       } : {
         email: '',
-        files: []
+        files: [],
+        operation: "register"
       },
 
       rules: {

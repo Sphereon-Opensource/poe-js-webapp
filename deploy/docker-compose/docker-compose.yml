@@ -1,0 +1,40 @@
+
+version: '3'
+services:
+  traefik:
+    image: traefik:latest
+    command: >
+      --providers.docker
+      --providers.file.directory=/providers/
+      --entrypoints.web.address=:80
+      --log.level=INFO
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./providers/:/providers/
+    labels:
+      - "traefik.enable=true"
+
+  traefik-forward-auth:
+    # image: thomseddon/traefik-forward-auth:2
+    image: traefik-forward-auth:latest
+    environment:
+      - DEFAULT_PROVIDER=wso2
+      - PROVIDERS_WSO2_CLIENT_ID=bvfJsN6NlVYxT4Ah_ytuDuX7lLMa
+      - PROVIDERS_WSO2_CLIENT_SECRET=nw9g3XEB89BEuuAsfXyonI6ytika
+      - PROVIDERS_WSO2_GRANT_TYPE=client_credentials # grant_type=client_credentials
+      - PROVIDERS_WSO2_TOKEN_HOST=gw.api.cloud.sphereon.com
+      - SECRET=something-random
+      # INSECURE_COOKIE is required if not using a https entrypoint
+      - INSECURE_COOKIE=true
+      - LOG_LEVEL=debug
+    labels:
+      - "traefik.http.middlewares.traefik-forward-auth.forwardauth.address=http://traefik-forward-auth:4181"
+      - "traefik.http.middlewares.traefik-forward-auth.forwardauth.authResponseHeaders=Authorization"
+      - "traefik.http.services.traefik-forward-auth.loadbalancer.server.port=4181"
+
+
+
+
+

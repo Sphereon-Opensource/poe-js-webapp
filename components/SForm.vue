@@ -6,7 +6,7 @@
     novalidate
     @submit.prevent="submit"
   >
-    <slot />
+    <slot/>
     <slot
       name="alert"
       :error="error"
@@ -36,89 +36,98 @@
 </template>
 
 <script>
-  import isEqual from 'lodash/isEqual';
+import isEqual from 'lodash/isEqual';
 
-  import { getFormData } from '@/assets/js/form';
+import {BcProofService} from "../services/bcproof/bcProofService";
 
-  export default {
-    name: 'SForm',
+export default {
+  name: 'SForm',
 
-    props: {
-      value: {
-        type: Object,
-        default: () => ({})
-      },
-
-      action: {
-        type: String,
-        required: true
-      }
+  props: {
+    value: {
+      type: Object,
+      default: () => ({})
     },
 
-    data() {
-      return {
-        fields: this.value,
-        valid: false,
-        submitting: false,
-        error: false
-      };
+    action: {
+      type: String,
+      required: true
+    }
+  },
+
+  data() {
+    return {
+      fields: this.value,
+      valid: false,
+      submitting: false,
+      error: false
+    };
+  },
+
+  computed: {
+    _action() {
+      return this.action.startsWith('/') ? this.action.replace(/^\/+/, '') : this.action;
     },
 
-    computed: {
-      _action() {
-        return this.action.startsWith('/') ? this.action.replace(/^\/+/, '') : this.action;
-      },
+    disabled() {
+      return !this.valid;
+    }
+  },
 
-      disabled() {
-        return !this.valid;
-      }
+  watch: {
+    value(value) {
+      this.fields = value;
     },
 
-    watch: {
-      value(value) {
-        this.fields = value;
-      },
+    fields(value) {
+      !isEqual(value, this.value) && this.$emit('input', value);
+    }
+  },
 
-      fields(value) {
-        !isEqual(value, this.value) && this.$emit('input', value);
+  methods: {
+    async submit() {
+      this.error = false;
+
+      this.$emit('pre-submit');
+
+      if (!this.$refs.form.validate()) {
+        return;
       }
-    },
 
-    methods: {
-      async submit() {
-        this.error = false;
+      this.submitting = true;
 
-        this.$emit('pre-submit');
+      const bcProofService = new BcProofService();
+      try {
+        const signResponses = await Promise.all(
+          this.fields.files
+            .map(async file => {
+              switch (this.fields.operation) {
+                case "register":
+                  return await bcProofService.registerFile(this.fields, file);
+                case "verify":
+                  return await bcProofService.verifyFile(this.fields, file);
+              }
+            })
+        );
+        signResponses.forEach(data => {
+          if(data.registrationState == "REGISTERED") {
+            this.fields.registered.push(data.requestId);
+          }
+        })
 
-        if (!this.$refs.form.validate()) {
-          return;
-        }
+        this.$emit('submit');
+        this.$refs.form.reset();
+      } catch (error) {
+        /* eslint-disable-next-line */
+        console.error(!!error && error.toString());
 
-        this.submitting = true;
-
-        try {
-          const formData = getFormData(this.fields);
-
-          const response = await this.$axios.$post(this._action, formData, {
-            headers: {
-              'Content-Type': 'multipart/formdata'
-            }
-          });
-
-          this.$emit('submit', response);
-
-          this.$refs.form.reset();
-        } catch (error) {
-          /* eslint-disable-next-line */
-          console.error(!!error && error.toString());
-
-          this.error = true;
-        }
-
-        this.submitting = false;
-
-        this.$emit('post-submit');
+        this.error = true;
       }
+
+      this.submitting = false;
+
+      this.$emit('post-submit');
     }
   }
+}
 </script>
