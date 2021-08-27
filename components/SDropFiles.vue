@@ -9,7 +9,7 @@
     >
       <v-icon class="mr-1">
         mdi-cloud-download
-      </v-icon> of sleep je bestanden hierin
+      </v-icon> Or drag-drop your files in here
     </div>
     <v-expand-transition v-if="preview">
       <div

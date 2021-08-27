@@ -82,7 +82,7 @@ export default {
   ],
 
   server: {
-    host: '0.0.0.0'
+    host: process.env.HOST
   },
 
   /*
@@ -123,6 +123,7 @@ export default {
   ** Sitemap configuration
   */
   sitemap: {
+    hostname: process.env.VUE_APP_SITE_BASE_URL,
     defaults: {
       changefreq: 'daily',
       lastmod: new Date(),

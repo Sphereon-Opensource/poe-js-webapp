@@ -1,0 +1,54 @@
+version: '3'
+services:
+  traefik:
+    image: traefik:latest
+    command: >
+      --providers.docker
+      --providers.docker.exposedbydefault=false
+      --providers.file.directory=/providers/
+      --entrypoints.web.address=:80
+      --entrypoints.web.http.redirections.entryPoint.to=websecure
+      --entrypoints.web.http.redirections.entryPoint.scheme=https
+      --entrypoints.web.http.redirections.entrypoint.permanent=true
+      --entrypoints.websecure.address=:443
+      --certificatesresolvers.myhttpchallenge.acme.httpchallenge=true
+      --certificatesresolvers.myhttpchallenge.acme.httpchallenge.entrypoint=web
+      --certificatesresolvers.myhttpchallenge.acme.email=dev@sphereon.com
+      --certificatesresolvers.myhttpchallenge.acme.storage=/cert/acme.json
+      --log.level=INFO
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./providers/:/providers/
+      - ./cert/:/cert/
+    labels:
+      - "traefik.enable=true"
+
+  traefik-forward-auth:
+    image: ${IMAGE_REPO_HOST}/sphereon/traefik-forward-auth:latest
+    environment:
+      - DEFAULT_PROVIDER=wso2
+      - PROVIDERS_WSO2_CLIENT_ID=bvfJsN6NlVYxT4Ah_ytuDuX7lLMa
+      - PROVIDERS_WSO2_CLIENT_SECRET=nw9g3XEB89BEuuAsfXyonI6ytika
+      - PROVIDERS_WSO2_GRANT_TYPE=client_credentials # grant_type=client_credentials
+      - PROVIDERS_WSO2_TOKEN_HOST=gw.api.cloud.sphereon.com
+      - SECRET=something-random
+      # INSECURE_COOKIE is required if not using a https entrypoint
+      - INSECURE_COOKIE=true
+      - LOG_LEVEL=debug
+    labels:
+      - "traefik.http.middlewares.traefik-forward-auth.forwardauth.address=http://traefik-forward-auth:4181"
+      - "traefik.http.middlewares.traefik-forward-auth.forwardauth.authResponseHeaders=Authorization"
+      - "traefik.http.services.traefik-forward-auth.loadbalancer.server.port=4181"
+
+  poe-webapp-js:
+    image: ${IMAGE_REPO_HOST}/sphereon-sites/poe-webapp-js
+    env_file:
+      - config/poe-webapp-js.env
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.poe-webapp-js.rule=Host(`${HOST}`)"
+      - "traefik.http.routers.poe-webapp-js.entrypoints=websecure"
+      - "traefik.http.routers.poe-webapp-js.tls.certresolver=myhttpchallenge"

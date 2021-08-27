@@ -9,7 +9,7 @@
       <v-file-input
         v-model="fields.files"
         :rules="rules.files"
-        label="Bestanden"
+        label="Files"
         multiple
         counter
         chips
@@ -40,7 +40,7 @@
           large
           rounded
         >
-          Bestanden verifiëren
+          Verify files
           <v-icon
             right
             size="24"
@@ -51,18 +51,42 @@
       </template>
     </s-form>
     <v-expand-transition>
-      <div v-if="verified.length">
+      <div v-if="verified.length || pending.length || unverified.length">
         <div class="title primary--text mt-4">
           Status
         </div>
         <v-divider class="mt-1 mb-2"/>
-        <div class="subtitle-1 mb-2">
-          Geverifieerde bestanden
-        </div>
-        <s-status
-          :items="verified"
-          :truncate-length="$vuetify.breakpoint.xsOnly ? 22 : Infinity"
-        />
+        <template v-if="verified.length">
+          <div class="subtitle-1 mb-2">
+            Files verified
+          </div>
+          <s-status
+            :items="verified"
+            :truncate-length="$vuetify.breakpoint.xsOnly ? 22 : Infinity"
+          />
+        </template>
+        <template v-if="pending.length">
+          <div class="subtitle-1 mb-2">
+            Files pending
+          </div>
+          <s-status
+            :items="pending"
+            :truncate-length="$vuetify.breakpoint.xsOnly ? 22 : Infinity"
+          />
+        </template>
+        <template v-if="unverified.length">
+          <v-divider
+            v-if="verified.length"
+            class="my-3"
+          />
+          <div class="subtitle-1 mb-2">
+            Files rejected
+          </div>
+          <s-status
+            :items="unverified"
+            :truncate-length="$vuetify.breakpoint.xsOnly ? 22 : Infinity"
+          />
+        </template>
       </div>
     </v-expand-transition>
   </div>
@@ -85,35 +109,50 @@ export default {
     } : {
       files: [],
       operation: "verify",
-      registered: []
+      bcResponses: []
     },
 
     rules: {
       files: [
-        v => !!v.length || 'Selecteer minimaal één bestand',
-        v => v.length <= 5 || 'Maximaal vijf bestanden toegestaan'
+        v => !!v.length || 'Select at least one file.',
+        v => v.length <= 5 || 'A maximum of 5 files is allowed.'
       ]
     },
 
     verified: [],
+    pending: [],
     unverified: []
   }),
 
   methods: {
     preSubmit() {
       this.verified = [];
+      this.pending = [];
       this.unverified = [];
     },
 
-    submit(response) {
-      // TODO: handle response
-      console.log(response);
-      this.fields.files.forEach(file => {
-        if (this.fields.registered.contains(file.name)) {
-          this.verified.push(file)
-        }
+    submit() {
+      const fields = this.fields;
+      fields.files.forEach(file => {
+        fields.bcResponses.forEach(bcResponse => {
+          if (bcResponse.requestId != file.name) return;
+
+          if (isState(bcResponse, "REGISTERED")) {
+            this.verified.push(file)
+          } else if (isState(bcResponse, "PENDING")) {
+            this.pending.push(file)
+          } else {
+            this.unverified.push(file)
+          }
+        })
       })
     }
   }
+}
+
+function isState(bcResponse, value) {
+  return (value == bcResponse.registrationState)
+    || (value == bcResponse.singleProofChain.registrationState)
+    || (value == bcResponse.perHashProofChain.registrationState)
 }
 </script>

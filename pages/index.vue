@@ -1,7 +1,7 @@
 <template>
   <layout-home>
     <h1 :class="[ $vuetify.breakpoint.xsOnly ? 'display-1' : 'display-3', 'font-weight-bold mb-4 white--text' ]">
-      Leg vast. Check, controleer en verifieer
+      Register, anchor & verify.
     </h1>
     <p class="body-1 tertiary--text">
       This is meant as a demo-page for those interested in Blockchain as a
@@ -47,7 +47,7 @@
               color="tertiary"
               class="px-12 py-6 black--text"
             >
-              Starten
+              Start
             </v-btn>
           </s-card-actions>
         </s-card>
@@ -71,17 +71,17 @@
       blocks: [
         {
           icon: '/sign.svg',
-          title: 'Vastleggen',
+          title: 'Register',
           text: `We just store a unique cryptographic key that represents the digital objects.
           It is important to understand that the files themselves are not stored in the Blockchain.`,
-          to: '/vastleggen'
+          to: '/register'
         },
         {
           icon: '/verify.svg',
-          title: 'Verifiëren',
+          title: 'Verify',
           text: `We just store a unique cryptographic key that represents the digital objects.
           This guarantees your privacy and confidentiality.`,
-          to: '/verifieren'
+          to: '/verify'
         }
       ]
     }),

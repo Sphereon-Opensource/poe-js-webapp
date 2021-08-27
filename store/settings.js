@@ -2,6 +2,7 @@ import { uid } from '@/assets/js/uid';
 
 export const state = () => ({
   mainNav: [
+/*
     {
       name: 'Zo werkt het!',
       to: '/zo-werkt-het'
@@ -10,6 +11,7 @@ export const state = () => ({
       name: 'Meer informatie',
       to: '/informatie'
     },
+*/
     {
       name: 'Contact',
       to: '/contact'

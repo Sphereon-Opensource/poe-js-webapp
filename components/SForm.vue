@@ -17,7 +17,7 @@
         text
         transition="fade-transition"
       >
-        Er is een onbekende fout opgetreden, probeer het nogmaals.
+        Something bad happened, please try again...
       </v-alert>
     </slot>
     <slot
@@ -109,10 +109,10 @@ export default {
               }
             })
         );
+        const self = this;
+        self._data.fields["bcResponses"] = [];
         signResponses.forEach(data => {
-          if(data.registrationState == "REGISTERED") {
-            this.fields.registered.push(data.requestId);
-          }
+          self._data.fields.bcResponses.push(data);
         })
 
         this.$emit('submit');

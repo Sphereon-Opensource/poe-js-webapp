@@ -26,7 +26,7 @@
           icon="/verify.svg"
           class="primary--text"
         >
-          Verifiëren
+          Verify
         </s-card-title>
         <s-card-text>
           We just store a unique cryptographic digital key that represents the digital objects. It
@@ -50,7 +50,7 @@
     components: { FormVerify, SCardText, SCardTitle, SCard, LayoutTwo },
 
     head: () => ({
-      title: 'Verifiëren - Document Sign',
+      title: 'Verify - Document Sign',
       meta: [
         { hid: 'description', name: 'description', content: 'Verify your digital documents' }
       ]

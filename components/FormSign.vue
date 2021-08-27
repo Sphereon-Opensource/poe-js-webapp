@@ -9,14 +9,14 @@
       <v-text-field
         v-model="fields.email"
         :rules="rules.email"
-        label="E-mailadres"
+        label="E-mail address"
         prepend-icon="mdi-email"
       />
-      <v-divider class="my-4" />
+      <v-divider class="my-4"/>
       <v-file-input
         v-model="fields.files"
         :rules="rules.files"
-        label="Bestanden"
+        label="Files"
         multiple
         counter
         :truncate-length="$vuetify.breakpoint.smAndUp ? 22 : 16"
@@ -31,10 +31,10 @@
         </template>
       </v-file-input>
       <template v-if="$vuetify.breakpoint.smAndUp">
-        <v-divider class="my-4" />
-        <s-drop-files v-model="fields.files" />
+        <v-divider class="my-4"/>
+        <s-drop-files v-model="fields.files"/>
       </template>
-      <v-divider class="my-4" />
+      <v-divider class="my-4"/>
       <template v-slot:action="{ disabled, submitting }">
         <v-btn
           :disabled="disabled"
@@ -46,7 +46,7 @@
           large
           rounded
         >
-          Bestanden uploaden
+          Upload files
           <v-icon
             right
             size="24"
@@ -57,17 +57,26 @@
       </template>
     </s-form>
     <v-expand-transition>
-      <div v-if="verified.length || unverified.length">
+      <div v-if="verified.length || pending.length || unverified.length">
         <div class="title primary--text mt-4">
           Status
         </div>
-        <v-divider class="mt-1 mb-2" />
+        <v-divider class="mt-1 mb-2"/>
         <template v-if="verified.length">
           <div class="subtitle-1 mb-2">
-            Bestanden ontvangen
+            Files registered
           </div>
           <s-status
             :items="verified"
+            :truncate-length="$vuetify.breakpoint.xsOnly ? 22 : Infinity"
+          />
+        </template>
+        <template v-if="pending.length">
+          <div class="subtitle-1 mb-2">
+            Files pending
+          </div>
+          <s-status
+            :items="pending"
             :truncate-length="$vuetify.breakpoint.xsOnly ? 22 : Infinity"
           />
         </template>
@@ -77,7 +86,7 @@
             class="my-3"
           />
           <div class="subtitle-1 mb-2">
-            Niet geverifieerde bestanden
+            Files rejected
           </div>
           <s-status
             :items="unverified"
@@ -90,55 +99,72 @@
 </template>
 
 <script>
-  import SForm from '@/components/SForm';
-  import SDropFiles from '@/components/SDropFiles';
-  import SStatus from '@/components/SStatus';
+import SForm from '@/components/SForm';
+import SDropFiles from '@/components/SDropFiles';
+import SStatus from '@/components/SStatus';
 
-  export default {
-    name: 'FormSign',
+export default {
+  name: 'FormSign',
 
-    components: { SStatus, SDropFiles, SForm },
+  components: {SStatus, SDropFiles, SForm},
 
-    data: () => ({
-      fields: process.env.NODE_ENV === 'development' ? {
-        email: `janedoe-${Date.now()}@softmedia.nl`,
-        files: [ new File([], `test-${Date.now()}.pdf`) ],
-        operation: "register"
-      } : {
-        email: '',
-        files: [],
-        operation: "register"
-      },
+  data: () => ({
+    fields: process.env.NODE_ENV === 'development' ? {
+      email: `janedoe-${Date.now()}@softmedia.nl`,
+      files: [new File([], `test-${Date.now()}.pdf`)],
+      operation: "register"
+    } : {
+      email: '',
+      files: [],
+      operation: "register"
+    },
 
-      rules: {
-        email: [
-          v => !!v || 'Voer een e-mailadres in',
-          v => /.+@.+\..+/.test(v) || 'Voer een geldig e-mailadres in'
-        ],
+    rules: {
+      email: [
+        v => !!v || 'Enter a valid email address',
+        v => /.+@.+\..+/.test(v) || 'Enter a valid email address'
+      ],
 
-        files: [
-          v => !!v.length || 'Selecteer minimaal één bestand',
-          v => v.length <= 5 || 'Maximaal vijf bestanden toegestaan'
-        ]
-      },
+      files: [
+        v => !!v.length || 'Select at least one file.',
+        v => v.length <= 5 || 'A maximum of 5 files is allowed.'
+      ]
+    },
 
-      verified: [],
-      unverified: []
-    }),
+    verified: [],
+    pending: [],
+    unverified: []
+  }),
 
-    methods: {
-      preSubmit() {
-        this.verified = [];
-        this.unverified = [];
-      },
+  methods: {
+    preSubmit() {
+      this.verified = [];
+      this.pending = [];
+      this.unverified = [];
+    },
 
-      submit(response) {
-        // TODO: handle response
-        console.log(response);
+    submit() {
+      const fields = this.fields;
+      fields.files.forEach(file => {
+        fields.bcResponses.forEach(bcResponse => {
+          if (bcResponse.requestId != file.name) return;
 
-        this.verified = [ ...this.fields.files.slice(1) ];
-        this.unverified = [ ...this.fields.files.slice(0, 1) ];
-      }
+          if (isState(bcResponse, "REGISTERED")) {
+            this.verified.push(file)
+          } else if (isState(bcResponse, "PENDING")) {
+            this.pending.push(file)
+          } else {
+            this.unverified.push(file)
+          }
+        })
+      })
     }
   }
+}
+
+function isState(bcResponse, value) {
+  return (value == bcResponse.registrationState)
+    || (value == bcResponse.singleProofChain.registrationState)
+    || (value == bcResponse.perHashProofChain.registrationState)
+}
 </script>

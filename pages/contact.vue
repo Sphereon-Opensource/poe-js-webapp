@@ -1,30 +1,73 @@
 <template>
   <layout-content>
     <s-card>
-      <s-card-title>
-        Contact
-      </s-card-title>
+      <div class="lrow">
+        <s-card-title class="lcolumn">
+          Contact
+        </s-card-title>
+        <a
+          href="https://www.sphereon.com"
+          target="_blank"
+          title="Sphereon.com"
+          class="logo"
+        >
+          <s-logo class="column marinTop"
+                  :src="sphereonLogo"
+                  :width="220"
+                  :height="15"
+                  alt="Sphereon"
+          />
+        </a>
+      </div>
       <s-card-text>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tincidunt magna quis nulla facilisis tristique sagittis sed dolor. Etiam consequat leo sed purus sagittis, accumsan elementum enim tristique. Quisque finibus congue orci quis fermentum. Aenean sagittis, metus sed porttitor blandit, velit mi luctus lorem, in porttitor lectus turpis et urna. Etiam lacinia, nulla et pharetra facilisis, ante est tristique diam, sit amet accumsan orci ante sed turpis. Curabitur ipsum est, dignissim vitae ultricies at, euismod at quam. Nulla est elit, semper ac sem quis, aliquet fringilla velit. Vestibulum sed imperdiet risus, quis hendrerit leo. Ut posuere finibus sem ac pretium. Curabitur hendrerit orci sed orci efficitur mattis. Cras ut quam volutpat, vulputate quam sit amet, interdum mauris. Donec a nunc a enim ultricies eleifend ut sit amet dui.</p>
+        <p>For more information about our products & solutions please visit our main website <a href="https://sphereon.com/" target="_blank">sphereon.com</a>.
+        </p>
       </s-card-text>
     </s-card>
   </layout-content>
 </template>
-
 <script>
-  import LayoutContent from '@/components/LayoutContent';
-  import SCard from '@/components/SCard';
-  import SCardTitle from '@/components/SCardTitle';
-  import SCardText from '@/components/SCardText';
 
-  export default {
-    components: { SCardText, SCardTitle, SCard, LayoutContent },
 
-    head: () => ({
-      title: 'Contact - Document Sign',
-      meta: [
-        { hid: 'description', name: 'description', content: 'Document Sign' }
-      ]
-    })
-  }
+import LayoutContent from '@/components/LayoutContent';
+import SCard from '@/components/SCard';
+import SCardTitle from '@/components/SCardTitle';
+import SCardText from '@/components/SCardText';
+import SLogo from '@/components/SLogo';
+
+export default {
+  components: {SCardText, SCardTitle, SCard, LayoutContent, SLogo},
+
+  head: () => ({
+    title: 'Contact - Document Sign',
+    meta: [
+      {hid: 'description', name: 'description', content: 'Document Sign'}
+    ]
+  }),
+
+  computed: {
+    sphereonLogo() {
+      return '/sphereon-zwart.svg';
+    }
+  },
+
+}
 </script>
+
+<style lang="scss" scoped>
+.lrow::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.lcolumn {
+  float: left;
+  padding-left: 5px;
+  padding-right: 20px;
+}
+
+.marinTop {
+  margin-top: -3px;
+}
+</style>

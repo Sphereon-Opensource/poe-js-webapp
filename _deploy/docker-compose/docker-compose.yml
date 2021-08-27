@@ -1,10 +1,10 @@
-
 version: '3'
 services:
   traefik:
     image: traefik:latest
     command: >
       --providers.docker
+      --providers.docker.exposedbydefault=false
       --providers.file.directory=/providers/
       --entrypoints.web.address=:80
       --log.level=INFO
@@ -17,8 +17,7 @@ services:
       - "traefik.enable=true"
 
   traefik-forward-auth:
-    # image: thomseddon/traefik-forward-auth:2
-    image: traefik-forward-auth:latest
+    image: ${IMAGE_REPO_HOST}/sphereon/traefik-forward-auth:latest
     environment:
       - DEFAULT_PROVIDER=wso2
       - PROVIDERS_WSO2_CLIENT_ID=bvfJsN6NlVYxT4Ah_ytuDuX7lLMa
@@ -34,7 +33,13 @@ services:
       - "traefik.http.middlewares.traefik-forward-auth.forwardauth.authResponseHeaders=Authorization"
       - "traefik.http.services.traefik-forward-auth.loadbalancer.server.port=4181"
 
-
-
+  poe-webapp-js:
+    image: ${IMAGE_REPO_HOST}/sphereon-sites/poe-webapp-js
+    env_file:
+      - config/poe-webapp-js.env
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.poe-webapp-js.rule=Host(`${HOST}`)"
+      - "traefik.http.routers.poe-webapp-js.entrypoints=web"
 
 

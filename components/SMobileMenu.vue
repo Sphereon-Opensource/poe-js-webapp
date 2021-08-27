@@ -100,12 +100,12 @@
               to: '/'
             },
             {
-              name: 'Vastleggen',
-              to: '/vastleggen'
+              name: 'Register',
+              to: '/register'
             },
             {
-              name: 'Verifiëren',
-              to: '/verifieren'
+              name: 'Verify',
+              to: '/verify'
             }
           ].map(value => ({ ...value, _uid: uid() })),
           ...this.$store.state.settings.mainNav || []
